@@ -87,6 +87,10 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Calculer le nombre total d'éléments et le nombre d'éléments trouvés
+    int totalElements = elements.length;
+    int discoveredElements = availableElements.length;
+
     // Calculer le nombre de colonnes en fonction de la largeur de l'écran
     final int columns = (MediaQuery.of(context).size.width / 100).floor();
 
@@ -98,7 +102,10 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(AppLocalizations.of(context)!.translate('select_element_1')),
+            Text(
+              '${AppLocalizations.of(context)!.translate('found_elements')}: $discoveredElements / $totalElements',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             const SizedBox(height: 16),
             Expanded(
               child: GridView.builder(
@@ -148,7 +155,7 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
                       .toList(); // Réinitialiser les éléments disponibles
                 });
               },
-              child: const Text('Reset'),
+              child: Text(AppLocalizations.of(context)!.translate('reset')),
             ),
           ],
         ),
