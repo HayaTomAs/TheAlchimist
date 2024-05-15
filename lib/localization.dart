@@ -29,6 +29,7 @@ class AppLocalizations {
   }
 
   String translate(String key) {
+    print("cle : " + key);
     return _localizedStrings[key] ?? key;
   }
 }
