@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'localization.dart';
 import 'models/elements.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'services/logger_service.dart';
 
 void main() {
   runApp(const AlchemistGame());
+  LoggerService.info('Application started');
 }
 
 class AlchemistGame extends StatelessWidget {
@@ -12,6 +14,7 @@ class AlchemistGame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LoggerService.debug('Building AlchemistGame widget');
     return MaterialApp(
       title: 'Alchemist Game',
       theme: ThemeData(
@@ -28,16 +31,16 @@ class AlchemistGame extends StatelessWidget {
         Locale('fr'),
       ],
       localeResolutionCallback: (locale, supportedLocales) {
-        print('Device locale: $locale');
+        LoggerService.info('Device locale: $locale');
         if (locale != null) {
           for (var supportedLocale in supportedLocales) {
             if (supportedLocale.languageCode == locale.languageCode) {
-              print('Supported locale found: $supportedLocale');
+              LoggerService.info('Supported locale found: $supportedLocale');
               return supportedLocale;
             }
           }
         }
-        print('Using default locale: fr');
+        LoggerService.info('Using default locale: fr');
         return const Locale('fr'); // Langue par défaut si non supportée
       },
       home: const ElementSelectionScreen(),
@@ -63,9 +66,12 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
 
   void _combineElements(GameElement targetElement, GameElement draggedElement) {
     setState(() {
+      LoggerService.debug(
+          'Combining ${targetElement.id} with ${draggedElement.id}');
       GameElement? resultElement =
           combineElements(targetElement, draggedElement);
       if (resultElement != null && !resultElement.discovered) {
+        LoggerService.info('New element discovered: ${resultElement.id}');
         resultElement.discovered =
             true; // Marquer le nouvel élément comme découvert
         resultElement.discoveryOrder =
@@ -89,11 +95,13 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
         return element;
       }
     }
+    LoggerService.warning('No combination found for ${e1.id} and ${e2.id}');
     return null;
   }
 
   @override
   Widget build(BuildContext context) {
+    LoggerService.debug('Building ElementSelectionScreen widget');
     // Calculer le nombre total d'éléments et le nombre d'éléments trouvés
     int totalElements = initialElements.length;
     int discoveredElements = availableElements.length;
@@ -155,6 +163,7 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
+                  LoggerService.info('Resetting elements to initial state');
                   // Réinitialiser le compteur d'ordre de découverte dynamiquement
                   discoveryCounter = getInitialElements()
                       .where((e) => e.discoveryOrder != null)

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:thealchimist/services/logger_service.dart';
 
 class AppLocalizations {
   final Locale locale;
@@ -29,7 +30,7 @@ class AppLocalizations {
   }
 
   String translate(String key) {
-    print("cle : $key");
+    LoggerService.info("cle trad : $key");
     return _localizedStrings[key] ?? key;
   }
 }
