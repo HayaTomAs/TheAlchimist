@@ -74,7 +74,11 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
   GameElement? combineElements(GameElement e1, GameElement e2) {
     for (var element in elements) {
       if ((element.parent1Id == e1.id && element.parent2Id == e2.id) ||
-          (element.parent1Id == e2.id && element.parent2Id == e1.id)) {
+          (element.parent1Id == e2.id && element.parent2Id == e1.id) ||
+          (element.parent1Id == e1.id &&
+              element.parent2Id == e1.id &&
+              e1 == e2)) {
+        // Vérifier combinaison avec lui-même
         return element;
       }
     }
@@ -107,23 +111,29 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
                 itemCount: availableElements.length,
                 itemBuilder: (context, index) {
                   final element = availableElements[index];
-                  return Draggable<GameElement>(
-                    data: element,
-                    feedback: Material(
-                      color: Colors.transparent,
-                      child: _buildElementWidget(element),
-                    ),
-                    childWhenDragging: Opacity(
-                      opacity: 0.5,
-                      child: _buildElementWidget(element),
-                    ),
-                    child: DragTarget<GameElement>(
-                      onAcceptWithDetails: (details) {
-                        _combineElements(element, details.data);
-                      },
-                      builder: (context, candidateData, rejectedData) {
-                        return _buildElementWidget(element);
-                      },
+                  return GestureDetector(
+                    onDoubleTap: () {
+                      _combineElements(
+                          element, element); // Combiner l'élément avec lui-même
+                    },
+                    child: Draggable<GameElement>(
+                      data: element,
+                      feedback: Material(
+                        color: Colors.transparent,
+                        child: _buildElementWidget(element),
+                      ),
+                      childWhenDragging: Opacity(
+                        opacity: 0.5,
+                        child: _buildElementWidget(element),
+                      ),
+                      child: DragTarget<GameElement>(
+                        onAcceptWithDetails: (details) {
+                          _combineElements(element, details.data);
+                        },
+                        builder: (context, candidateData, rejectedData) {
+                          return _buildElementWidget(element);
+                        },
+                      ),
                     ),
                   );
                 },
