@@ -12,9 +12,22 @@ class GameElement {
       this.parent1Id,
       this.parent2Id,
       this.discoveryOrder});
+
+  // Méthode pour créer une copie de l'élément
+  GameElement copy() {
+    return GameElement(
+      id,
+      translationKey,
+      imagePath,
+      discovered: discovered,
+      parent1Id: parent1Id,
+      parent2Id: parent2Id,
+      discoveryOrder: discoveryOrder,
+    );
+  }
 }
 
-final elements = <GameElement>[
+final initialElements = <GameElement>[
   GameElement('void', 'element_void', 'assets/images/element_generic.png',
       discovered: true, discoveryOrder: 0),
   GameElement('time', 'element_time', 'assets/images/element_generic.png',
@@ -45,3 +58,8 @@ final elements = <GameElement>[
   GameElement('lava', 'element_lava', 'assets/images/element_generic.png',
       parent1Id: 'fire', parent2Id: 'stone'),
 ];
+
+// Créer une copie des éléments initiaux
+List<GameElement> getInitialElements() {
+  return initialElements.map((e) => e.copy()).toList();
+}

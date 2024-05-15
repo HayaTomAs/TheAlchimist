@@ -53,10 +53,13 @@ class ElementSelectionScreen extends StatefulWidget {
 }
 
 class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
-  List<GameElement> availableElements = elements
+  List<GameElement> availableElements = getInitialElements()
       .where((e) => e.discovered)
       .toList(); // Filtrer les éléments disponibles
-  int discoveryCounter = 3; // Initialiser le compteur d'ordre de découverte
+
+  // Initialiser le compteur d'ordre de découverte dynamiquement
+  int discoveryCounter =
+      getInitialElements().where((e) => e.discoveryOrder != null).length;
 
   void _combineElements(GameElement targetElement, GameElement draggedElement) {
     setState(() {
@@ -67,7 +70,8 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
             true; // Marquer le nouvel élément comme découvert
         resultElement.discoveryOrder =
             discoveryCounter++; // Définir l'ordre de découverte
-        availableElements = elements.where((e) => e.discovered).toList();
+        availableElements =
+            getInitialElements().where((e) => e.discovered).toList();
         availableElements.sort((a, b) => a.discoveryOrder!
             .compareTo(b.discoveryOrder!)); // Trier par ordre de découverte
       }
@@ -75,7 +79,7 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
   }
 
   GameElement? combineElements(GameElement e1, GameElement e2) {
-    for (var element in elements) {
+    for (var element in getInitialElements()) {
       if ((element.parent1Id == e1.id && element.parent2Id == e2.id) ||
           (element.parent1Id == e2.id && element.parent2Id == e1.id) ||
           (element.parent1Id == e1.id &&
@@ -91,7 +95,7 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     // Calculer le nombre total d'éléments et le nombre d'éléments trouvés
-    int totalElements = elements.length;
+    int totalElements = initialElements.length;
     int discoveredElements = availableElements.length;
 
     // Calculer le nombre de colonnes en fonction de la largeur de l'écran
@@ -121,8 +125,8 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
                   final element = availableElements[index];
                   return GestureDetector(
                     onDoubleTap: () {
-                      _combineElements(
-                          element, element); // Combiner l'élément avec lui-même
+                      // Combiner l'élément avec lui-même
+                      _combineElements(element, element);
                     },
                     child: Draggable<GameElement>(
                       data: element,
@@ -151,15 +155,11 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  discoveryCounter =
-                      3; // Réinitialiser le compteur d'ordre de découverte
-                  elements.forEach((element) {
-                    if (element.discoveryOrder != null) {
-                      element.discoveryOrder = null;
-                      element.discovered = false;
-                    }
-                  });
-                  availableElements = elements
+                  // Réinitialiser le compteur d'ordre de découverte dynamiquement
+                  discoveryCounter = getInitialElements()
+                      .where((e) => e.discoveryOrder != null)
+                      .length;
+                  availableElements = getInitialElements()
                       .where((e) => e.discovered)
                       .toList(); // Réinitialiser les éléments disponibles
                 });
