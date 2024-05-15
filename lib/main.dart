@@ -109,8 +109,6 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
             const SizedBox(height: 16),
             Expanded(
               child: GridView.builder(
-                physics:
-                    const NeverScrollableScrollPhysics(), // Désactiver le défilement
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: columns,
                   childAspectRatio: 1,
