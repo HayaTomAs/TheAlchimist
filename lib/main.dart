@@ -56,13 +56,13 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
   List<GameElement> availableElements = elements
       .where((e) => e.discovered)
       .toList(); // Filtrer les éléments disponibles
-  GameElement? resultElement;
 
   void _combineElements(GameElement targetElement, GameElement draggedElement) {
     setState(() {
-      resultElement = combineElements(targetElement, draggedElement);
+      GameElement? resultElement =
+          combineElements(targetElement, draggedElement);
       if (resultElement != null) {
-        resultElement!.discovered =
+        resultElement.discovered =
             true; // Marquer le nouvel élément comme découvert
         availableElements = elements
             .where((e) => e.discovered)
@@ -83,6 +83,9 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Calculer le nombre de colonnes en fonction de la largeur de l'écran
+    final int columns = (MediaQuery.of(context).size.width / 100).floor();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.translate('title')),
@@ -95,8 +98,10 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
             const SizedBox(height: 16),
             Expanded(
               child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+                physics:
+                    const NeverScrollableScrollPhysics(), // Désactiver le défilement
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: columns,
                   childAspectRatio: 1,
                 ),
                 itemCount: availableElements.length,
@@ -113,8 +118,8 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
                       child: _buildElementWidget(element),
                     ),
                     child: DragTarget<GameElement>(
-                      onAcceptWithDetails: (draggedElement) {
-                        _combineElements(element, draggedElement.data);
+                      onAcceptWithDetails: (details) {
+                        _combineElements(element, details.data);
                       },
                       builder: (context, candidateData, rejectedData) {
                         return _buildElementWidget(element);
@@ -124,17 +129,10 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
                 },
               ),
             ),
-            const SizedBox(height: 32),
-            if (resultElement != null) ...[
-              Text(AppLocalizations.of(context)!.translate('result')),
-              const SizedBox(height: 16),
-              _buildElementWidget(resultElement!),
-            ],
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  resultElement = null;
                   availableElements = elements
                       .where((e) => e.discovered)
                       .toList(); // Réinitialiser les éléments disponibles
