@@ -56,17 +56,20 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
   List<GameElement> availableElements = elements
       .where((e) => e.discovered)
       .toList(); // Filtrer les éléments disponibles
+  int discoveryCounter = 3; // Initialiser le compteur d'ordre de découverte
 
   void _combineElements(GameElement targetElement, GameElement draggedElement) {
     setState(() {
       GameElement? resultElement =
           combineElements(targetElement, draggedElement);
-      if (resultElement != null) {
+      if (resultElement != null && !resultElement.discovered) {
         resultElement.discovered =
             true; // Marquer le nouvel élément comme découvert
-        availableElements = elements
-            .where((e) => e.discovered)
-            .toList(); // Mettre à jour les éléments disponibles
+        resultElement.discoveryOrder =
+            discoveryCounter++; // Définir l'ordre de découverte
+        availableElements = elements.where((e) => e.discovered).toList();
+        availableElements.sort((a, b) => a.discoveryOrder!
+            .compareTo(b.discoveryOrder!)); // Trier par ordre de découverte
       }
     });
   }
@@ -148,6 +151,14 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
+                  discoveryCounter =
+                      3; // Réinitialiser le compteur d'ordre de découverte
+                  elements.forEach((element) {
+                    if (element.discoveryOrder != null) {
+                      element.discoveryOrder = null;
+                      element.discovered = false;
+                    }
+                  });
                   availableElements = elements
                       .where((e) => e.discovered)
                       .toList(); // Réinitialiser les éléments disponibles
