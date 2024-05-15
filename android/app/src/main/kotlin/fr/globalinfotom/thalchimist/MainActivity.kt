@@ -1,4 +1,4 @@
-package com.example.thalchimist
+package fr.globalinfotom.thalchimist
 
 import io.flutter.embedding.android.FlutterActivity
 
