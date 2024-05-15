@@ -1,5 +1,20 @@
 {
     "title": "Jeu Alchimiste",
-    "found_elements": "Eléments trouvés ",
-    "reset": "Effacer"
-}
+    "found_elements": "Éléments trouvés",
+    "reset": "Réinitialiser",
+    "element_void": "Vide",
+    "element_time": "Temps",
+    "element_atom": "Atome",
+    "element_cellular": "Cellulaire",
+    "element_fire": "Feu",
+    "element_water": "Eau",
+    "element_life": "Vie",
+    "element_earth": "Terre",
+    "element_air": "Air",
+    "element_steam": "Vapeur",
+    "element_mud": "Boue",
+    "element_wind": "Vent",
+    "element_stone": "Pierre",
+    "element_lava": "Lave"
+  }
+  

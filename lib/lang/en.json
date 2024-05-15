@@ -1,5 +1,20 @@
 {
     "title": "Alchemist Game",
-    "found_elements": "Finding elements ",
-    "reset": "Reset"
-}
+    "found_elements": "Found elements",
+    "reset": "Reset",
+    "element_void": "Void",
+    "element_time": "Time",
+    "element_atom": "Atom",
+    "element_cellular": "Cellular",
+    "element_fire": "Fire",
+    "element_water": "Water",
+    "element_life": "Life",
+    "element_earth": "Earth",
+    "element_air": "Air",
+    "element_steam": "Steam",
+    "element_mud": "Mud",
+    "element_wind": "Wind",
+    "element_stone": "Stone",
+    "element_lava": "Lava"
+  }
+  

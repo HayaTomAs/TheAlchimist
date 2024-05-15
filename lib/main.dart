@@ -125,18 +125,18 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
                       data: element,
                       feedback: Material(
                         color: Colors.transparent,
-                        child: _buildElementWidget(element),
+                        child: _buildElementWidget(context, element),
                       ),
                       childWhenDragging: Opacity(
                         opacity: 0.5,
-                        child: _buildElementWidget(element),
+                        child: _buildElementWidget(context, element),
                       ),
                       child: DragTarget<GameElement>(
                         onAcceptWithDetails: (details) {
                           _combineElements(element, details.data);
                         },
                         builder: (context, candidateData, rejectedData) {
-                          return _buildElementWidget(element);
+                          return _buildElementWidget(context, element);
                         },
                       ),
                     ),
@@ -161,13 +161,13 @@ class _ElementSelectionScreenState extends State<ElementSelectionScreen> {
     );
   }
 
-  Widget _buildElementWidget(GameElement element) {
+  Widget _buildElementWidget(BuildContext context, GameElement element) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(element.imagePath, width: 50, height: 50),
         const SizedBox(height: 8),
-        Text(element.name),
+        Text(AppLocalizations.of(context)!.translate(element.translationKey)),
       ],
     );
   }
