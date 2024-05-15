@@ -38,7 +38,7 @@ final initialElements = <GameElement>[
       'cellular', 'element_cellular', 'assets/images/element_generic.png',
       parent1Id: 'atom', parent2Id: 'atom'),
   GameElement('fire', 'element_fire', 'assets/images/element_generic.png',
-      discovered: true, discoveryOrder: 2),
+      parent1Id: 'wind', parent2Id: 'atom'),
   GameElement('water', 'element_water', 'assets/images/element_generic.png',
       parent1Id: 'wind', parent2Id: 'time'),
   GameElement('life', 'element_life', 'assets/images/element_generic.png',
