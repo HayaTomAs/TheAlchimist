@@ -1,7 +1,5 @@
 {
     "title": "Alchemist Game",
-    "select_element_1": "Select Element 1",
-    "select_element_2": "Select Element 2",
-    "combine": "Combine",
-    "result": "Result"
-  }
+    "found_elements": "Finding elements ",
+    "reset": "Reset"
+}
