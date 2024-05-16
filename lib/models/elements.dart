@@ -81,7 +81,7 @@ final initialElements = <GameElement>[
     'element_star',
     'assets/images/element_generic.png',
     possibleCombinations: [
-      {'parent1Id': 'void', 'parent2Id': 'energy'},
+      {'parent1Id': 'time', 'parent2Id': 'energy'},
     ],
   ),
   GameElement(
@@ -177,7 +177,7 @@ final initialElements = <GameElement>[
     'element_atmospher',
     'assets/images/element_generic.png',
     possibleCombinations: [
-      {'parent1Id': 'void', 'parent2Id': 'energy'},
+      {'parent1Id': 'planet', 'parent2Id': 'air'},
     ],
   ),
   GameElement(
