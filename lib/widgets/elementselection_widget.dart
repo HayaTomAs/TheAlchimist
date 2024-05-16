@@ -42,6 +42,7 @@ class ElementSelectionScreen extends StatelessWidget {
                   final element = elementsProvider.availableElements[index];
                   return GestureDetector(
                     onDoubleTap: () {
+                      LoggerService.debug('Double click');
                       elementsProvider.combineElements(element, element);
                     },
                     child: Draggable<GameElement>(
@@ -56,6 +57,7 @@ class ElementSelectionScreen extends StatelessWidget {
                       ),
                       child: DragTarget<GameElement>(
                         onAcceptWithDetails: (details) {
+                          LoggerService.debug('Reception element');
                           elementsProvider.combineElements(
                               element, details.data);
                         },
