@@ -13,7 +13,9 @@ class ElementsProvider with ChangeNotifier {
   void combineElements(GameElement targetElement, GameElement draggedElement) {
     LoggerService.debug('Combining ${targetElement.id} with ${draggedElement.id}');
     GameElement? resultElement = _findCombination(targetElement, draggedElement);
-    if (resultElement != null && !resultElement.discovered) {
+    if (resultElement != null &&
+        !resultElement.discovered &&
+        !availableElements.any((element) => element.id == resultElement.id)) {
       LoggerService.info('New element discovered: ${resultElement.id}');
       resultElement.discovered = true;
       resultElement.discoveryOrder = discoveryCounter++;
