@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../localization.dart';
 import '/models/elements.dart';
+import '/services/localization.dart';
 import '/services/logger_service.dart';
-import '../element_provider.dart';
+import '/services/element_provider.dart';
 import '/widgets/element_widget.dart';
 
 class ElementSelectionScreen extends StatelessWidget {
