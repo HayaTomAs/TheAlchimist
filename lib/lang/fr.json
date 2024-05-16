@@ -1,11 +1,15 @@
 {
-    "title": "Jeu Alchimiste",
-    "found_elements": "Éléments trouvés",
+    "title": "Ici l'Alchimiste",
+    "found_elements": "Eléments trouvés",
     "reset": "Réinitialiser",
     "element_void": "Vide",
     "element_time": "Temps",
+    "element_energy": "Énergie",
     "element_atom": "Atome",
     "element_cellular": "Cellulaire",
+    "element_moon": "Lune",
+    "element_star": "Étoile",
+    "element_planet": "Planète",
     "element_fire": "Feu",
     "element_water": "Eau",
     "element_life": "Vie",
@@ -15,6 +19,17 @@
     "element_mud": "Boue",
     "element_wind": "Vent",
     "element_stone": "Pierre",
-    "element_lava": "Lave"
-  }
+    "element_lava": "Lave",
+    "element_atmospher": "Atmosphère",
+    "element_cloud": "Nuage",
+    "element_rain": "Pluie",
+    "element_thunder": "Tonnerre",
+    "element_ocean": "Océan",
+    "element_grass": "Herbe",
+    "element_planctoon": "Plancton",
+    "element_oxygen": "Oxygène",
+    "element_animal": "Animal",
+    "element_hood": "Bois"
+}
+
   

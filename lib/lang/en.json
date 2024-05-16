@@ -1,11 +1,15 @@
 {
-    "title": "Alchemist Game",
-    "found_elements": "Found elements",
+    "title": "Alchemy Game",
+    "found_elements": "Found Elements",
     "reset": "Reset",
     "element_void": "Void",
     "element_time": "Time",
+    "element_energy": "Energy",
     "element_atom": "Atom",
     "element_cellular": "Cellular",
+    "element_moon": "Moon",
+    "element_star": "Star",
+    "element_planet": "Planet",
     "element_fire": "Fire",
     "element_water": "Water",
     "element_life": "Life",
@@ -15,6 +19,15 @@
     "element_mud": "Mud",
     "element_wind": "Wind",
     "element_stone": "Stone",
-    "element_lava": "Lava"
-  }
-  
+    "element_lava": "Lava",
+    "element_atmospher": "Atmosphere",
+    "element_cloud": "Cloud",
+    "element_rain": "Rain",
+    "element_thunder": "Thunder",
+    "element_ocean": "Ocean",
+    "element_grass": "Grass",
+    "element_planctoon": "Plankton",
+    "element_oxygen": "Oxygen",
+    "element_animal": "Animal",
+    "element_hood": "Wood"
+}
