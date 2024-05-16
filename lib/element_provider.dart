@@ -5,8 +5,11 @@ import '/services/logger_service.dart';
 class ElementsProvider with ChangeNotifier {
   List<GameElement> availableElements =
       getInitialElements().where((e) => e.discovered).toList();
-  int discoveryCounter =
-      getInitialElements().where((e) => e.discoveryOrder != null).length;
+  int discoveryCounter = 0;
+
+  ElementsProvider() {
+    discoveryCounter = availableElements.length;
+  }
 
   void combineElements(GameElement targetElement, GameElement draggedElement) {
     LoggerService.debug(
@@ -17,8 +20,7 @@ class ElementsProvider with ChangeNotifier {
       LoggerService.info('New element discovered: ${resultElement.id}');
       resultElement.discovered = true;
       resultElement.discoveryOrder = discoveryCounter++;
-      availableElements =
-          getInitialElements().where((e) => e.discovered).toList();
+      availableElements.add(resultElement);
       availableElements
           .sort((a, b) => a.discoveryOrder!.compareTo(b.discoveryOrder!));
       notifyListeners();
