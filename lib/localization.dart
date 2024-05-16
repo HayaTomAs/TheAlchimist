@@ -30,7 +30,7 @@ class AppLocalizations {
   }
 
   String translate(String key) {
-    LoggerService.info("cle trad : $key");
+    LoggerService.debug("cle trad : $key");
     return _localizedStrings[key] ?? key;
   }
 }
