@@ -9,8 +9,9 @@ class LoggerService {
       lineLength: 120, // Longueur de ligne pour chaque sortie
       colors: true, // Activer les couleurs pour l'affichage
       printEmojis: true, // Activer l'affichage des émojis
-      printTime: false, // Activer l'affichage de l'heure
+      printTime: true, // Activer l'affichage de l'heure
     ),
+    level: Level.info,
   );
 
   static void debug(String message, [dynamic error, StackTrace? stackTrace]) {
