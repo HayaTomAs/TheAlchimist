@@ -10,9 +10,14 @@ List<GameElement> getInitialElements() {
 class ElementsProvider with ChangeNotifier {
   List<GameElement> availableElements = getInitialElements().where((e) => e.discovered).toList();
   int discoveryCounter = 0;
+  Map<GameElement, Offset> elementPositions = {};
 
   ElementsProvider() {
     discoveryCounter = availableElements.length;
+    // Initialiser les positions des éléments
+    for (var element in availableElements) {
+      elementPositions[element] = Offset(element.discoveryOrder! * 50, 50);
+    }
   }
 
   void combineElements(GameElement targetElement, GameElement draggedElement) {
@@ -25,6 +30,7 @@ class ElementsProvider with ChangeNotifier {
       resultElement.discovered = true;
       resultElement.discoveryOrder = discoveryCounter++;
       availableElements.add(resultElement);
+      elementPositions[resultElement] = Offset(50, 50); // Position initiale pour le nouvel élément
       availableElements.sort((a, b) => a.discoveryOrder!.compareTo(b.discoveryOrder!));
       notifyListeners();
     }
@@ -48,6 +54,20 @@ class ElementsProvider with ChangeNotifier {
     LoggerService.info('Resetting elements to initial state');
     discoveryCounter = getInitialElements().where((e) => e.discoveryOrder != null).length;
     availableElements = getInitialElements().where((e) => e.discovered).toList();
+    elementPositions.clear();
+    // Réinitialiser les positions des éléments
+    for (var element in availableElements) {
+      elementPositions[element] = Offset(element.discoveryOrder! * 50, 50);
+    }
     notifyListeners();
+  }
+
+  void updateElementPosition(GameElement element, Offset newPosition) {
+    elementPositions[element] = newPosition;
+    notifyListeners();
+  }
+
+  Offset getElementPosition(GameElement element) {
+    return elementPositions[element] ?? Offset(50, 50);
   }
 }
