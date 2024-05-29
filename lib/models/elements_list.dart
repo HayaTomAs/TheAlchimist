@@ -25,4 +25,22 @@ final initialElements = <GameElement>[
     discoveryOrder: 2,
     possibleCombinations: [],
   ),
+  GameElement(
+    'atom',
+    'element_atom',
+    'assets/images/element_generic.png',
+    discovered: false,
+    possibleCombinations: [
+      {'parent1Id': 'void', 'parent2Id': 'energy'}
+    ],
+  ),
+  GameElement(
+    'gas',
+    'element_gas',
+    'assets/images/element_generic.png',
+    discovered: false,
+    possibleCombinations: [
+      {'parent1Id': 'void', 'parent2Id': 'atom'}
+    ],
+  ),
 ];
