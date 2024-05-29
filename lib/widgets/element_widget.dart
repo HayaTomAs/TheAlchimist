@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '/models/elements.dart';
-import '../services/localization.dart';
+import '/models/elements_base.dart';
+import '/services/localization.dart';
 
 class ElementWidget extends StatelessWidget {
   final GameElement element;
