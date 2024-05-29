@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/models/elements.dart';
+import '/models/elements_base.dart';
+import '/models/elements_list.dart';
 import '/services/localization.dart';
 import '/services/logger_service.dart';
 import '/services/element_provider.dart';
@@ -58,8 +59,7 @@ class ElementSelectionScreen extends StatelessWidget {
                       child: DragTarget<GameElement>(
                         onAcceptWithDetails: (details) {
                           LoggerService.debug('Reception element');
-                          elementsProvider.combineElements(
-                              element, details.data);
+                          elementsProvider.combineElements(element, details.data);
                         },
                         builder: (context, candidateData, rejectedData) {
                           return ElementWidget(element: element);

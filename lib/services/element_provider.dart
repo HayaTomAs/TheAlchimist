@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import '/models/elements.dart';
+import '/models/elements_base.dart';
+import '/models/elements_list.dart';
 import '/services/logger_service.dart';
+
+List<GameElement> getInitialElements() {
+  return initialElements.map((e) => e.copy()).toList();
+}
 
 class ElementsProvider with ChangeNotifier {
   List<GameElement> availableElements = getInitialElements().where((e) => e.discovered).toList();
