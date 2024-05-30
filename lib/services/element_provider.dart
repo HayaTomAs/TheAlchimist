@@ -11,6 +11,7 @@ class ElementsProvider with ChangeNotifier {
   List<GameElement> availableElements = getInitialElements().where((e) => e.discovered).toList();
   int discoveryCounter = 0;
   Map<GameElement, Offset> elementPositions = {};
+  Map<GameElement, Offset> initialPositions = {}; // Mémoriser les positions initiales
 
   ElementsProvider() {
     discoveryCounter = availableElements.length;
@@ -69,5 +70,14 @@ class ElementsProvider with ChangeNotifier {
 
   Offset getElementPosition(GameElement element) {
     return elementPositions[element] ?? Offset(50, 50);
+  }
+
+  void setInitialPosition(GameElement element) {
+    initialPositions[element] = elementPositions[element] ?? Offset(element.discoveryOrder! * 50, 50);
+  }
+
+  void restoreInitialPosition(GameElement element) {
+    elementPositions[element] = initialPositions[element] ?? Offset(element.discoveryOrder! * 50, 50);
+    notifyListeners();
   }
 }
