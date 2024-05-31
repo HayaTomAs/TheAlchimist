@@ -59,7 +59,12 @@ class ElementSelectionScreen extends StatelessWidget {
                               opacity: 0.5,
                               child: ElementWidget(element: element),
                             ),
+                            onDragStarted: () {
+                              LoggerService.debug("Debut du drag");
+                              elementsProvider.setInitialPosition(element);
+                            },
                             onDragEnd: (details) {
+                              LoggerService.debug("Fin du drag");
                               // Obtenir la position du Stack par rapport à l'écran
                               final stackRenderBox = stackKey.currentContext?.findRenderObject() as RenderBox?;
                               final stackPosition = stackRenderBox?.localToGlobal(Offset.zero) ?? Offset.zero;
@@ -72,9 +77,15 @@ class ElementSelectionScreen extends StatelessWidget {
                               elementsProvider.updateElementPosition(element, constrainedPosition);
                             },
                             child: DragTarget<GameElement>(
-                              onAcceptWithDetails: (details) {
+                              onWillAcceptWithDetails: (dragTargetDetails) {
+                                //elementsProvider.setInitialPosition(element); // Mémoriser la position initiale
+                                return true;
+                              },
+                              onAcceptWithDetails: (dragTargetDetails) {
                                 LoggerService.debug('Received element');
-                                elementsProvider.combineElements(element, details.data);
+                                elementsProvider.combineElements(element, dragTargetDetails.data);
+                                // Restaurer la position initiale de l'élément déplacé
+                                elementsProvider.restoreInitialPosition(dragTargetDetails.data);
                               },
                               builder: (context, candidateData, rejectedData) {
                                 return ElementWidget(element: element);

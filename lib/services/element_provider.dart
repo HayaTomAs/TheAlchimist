@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import '/models/elements_base.dart';
 import '/models/elements_list.dart';
 import '/services/logger_service.dart';
@@ -31,7 +32,9 @@ class ElementsProvider with ChangeNotifier {
       resultElement.discovered = true;
       resultElement.discoveryOrder = discoveryCounter++;
       availableElements.add(resultElement);
-      elementPositions[resultElement] = Offset(50, 50); // Position initiale pour le nouvel élément
+      // Position initiale pour le nouvel élément
+      elementPositions[resultElement] =
+          Offset(elementPositions[draggedElement]!.dx, elementPositions[draggedElement]!.dy + 25);
       availableElements.sort((a, b) => a.discoveryOrder!.compareTo(b.discoveryOrder!));
       notifyListeners();
     }
@@ -69,7 +72,7 @@ class ElementsProvider with ChangeNotifier {
   }
 
   Offset getElementPosition(GameElement element) {
-    return elementPositions[element] ?? Offset(50, 50);
+    return elementPositions[element] ?? const Offset(50, 50);
   }
 
   void setInitialPosition(GameElement element) {
