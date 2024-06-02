@@ -2,6 +2,8 @@
     "title": "Alchemist Here",
     "found_elements": "Found Elements",
     "reset": "Reset",
+    "game_modes_title": "Game Modes",
+  "normal_mode": "Normal",
     "element_void": "Void",
     "element_time": "Time",
     "element_energy": "Energy",
