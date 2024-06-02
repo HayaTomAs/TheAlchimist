@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'services/localization.dart';
 import 'services/element_provider.dart';
 import 'services/logger_service.dart';
+import 'screens/home_screen.dart';
+import 'screens/game_mode_screnn.dart';
+import 'screens/settings_screen.dart';
+import 'screens/info_screen.dart';
 import 'widgets/elementselection_widget.dart';
 
 void main() {
@@ -29,30 +31,53 @@ class AlchemistGame extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('fr'),
-      ],
-      localeResolutionCallback: (locale, supportedLocales) {
-        LoggerService.info('Device locale: $locale');
-        if (locale != null) {
-          for (var supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale.languageCode) {
-              LoggerService.info('Supported locale found: $supportedLocale');
-              return supportedLocale;
-            }
-          }
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/':
+            return _buildRoute(settings, const HomeScreen());
+          case '/game':
+            return _buildRoute(settings, const ElementSelectionScreen());
+          case '/mode':
+            return _buildRoute(settings, const GameModeScreen());
+          case '/settings':
+            return _buildRoute(settings, const SettingsScreen());
+          case '/info':
+            return _buildRoute(settings, const InfoScreen());
+          default:
+            return null;
         }
-        LoggerService.info('Using default locale: fr');
-        return const Locale('fr');
       },
-      home: const ElementSelectionScreen(),
+    );
+  }
+
+  PageRouteBuilder _buildRoute(RouteSettings settings, Widget screen) {
+    return PageRouteBuilder(
+      settings: settings,
+      pageBuilder: (_, __, ___) => screen,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return RotationTransition(
+          turns: Tween(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeInOut,
+            ),
+          ),
+          child:
+              child /*SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(1.0, 0.0),
+              end: Offset.zero,
+            ).animate(
+              CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeInOut,
+              ),
+            ),
+            child: child,
+          )*/
+          ,
+        );
+      },
     );
   }
 }
